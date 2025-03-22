@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\loginController;
 use App\Http\Controllers\API\Auth\LogoutController;
+use App\Http\Controllers\API\OrganizationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +13,12 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         return $request->user();
     }); // testing purpose
 
-    Route::prefix('organizations')->group(function () {
-        
+    Route::prefix('organization')->group(function () {
+        Route::get('/', [OrganizationController::class, 'index']);
+        Route::middleware(['permission'])->group(function () {
+            Route::post('/store', [OrganizationController::class, 'store']);
+            Route::post('/update', [OrganizationController::class, 'update']);
+            Route::post('/delete', [OrganizationController::class, 'delete']);
+        });
     });
 });
