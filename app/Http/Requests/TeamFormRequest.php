@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrganizationFormRequest extends FormRequest
+class TeamFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,9 @@ class OrganizationFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'update_id' => ['nullable', 'exists:organizations,id'],
-            'name' => ['required', 'unique:organizations', 'string', 'max:255']
+            'update_id' => ['nullable', 'exists:teams,id'],
+            'organization_id' => ['required', 'exists:organizations,id'],
+            'name' => ['required', 'string', 'max:255'],
         ];
     }
 }
