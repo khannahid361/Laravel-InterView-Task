@@ -4,6 +4,14 @@ use App\Http\Controllers\API\Auth\loginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login',[loginController::class]);
-Route::prefix('v1')->group(function () {
+Route::post('/auth/login',[loginController::class, '__invoke']);
+Route::post('/auth/logout',[loginController::class, '__invoke']);
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    }); // testing purpose
+
+    Route::prefix('organizations')->group(function () {
+        
+    });
 });
