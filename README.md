@@ -29,4 +29,5 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 - Installed Laravel
 - Added 3 tables 
 - created database and Migrated 3 tables 
+- relationship defined in model
 - **[Vehikl](https://vehikl.com/)**
