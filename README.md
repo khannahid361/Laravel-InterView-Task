@@ -15,12 +15,17 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 
 
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
 
 
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## Working Step
+
+- Installed Laravel
+- Added 3 tables 
+- **[Vehikl](https://vehikl.com/)**
