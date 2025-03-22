@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\Auth\loginController;
 use App\Http\Controllers\API\Auth\LogoutController;
+use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\TeamController;
 use Illuminate\Http\Request;
@@ -30,6 +31,16 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             Route::post('/store', [TeamController::class, 'store']);
             Route::post('/update', [TeamController::class, 'update']);
             Route::post('/delete', [TeamController::class, 'delete']);
+        });
+    });
+
+    //employee
+    Route::prefix('employee')->group(function () {
+        Route::get('/', [EmployeeController::class, 'index']);
+        Route::middleware(['permission'])->group(function () {
+            Route::post('/store', [EmployeeController::class, 'store']);
+            Route::post('/update', [EmployeeController::class, 'update']);
+            Route::post('/delete', [EmployeeController::class, 'delete']);
         });
     });
 });
