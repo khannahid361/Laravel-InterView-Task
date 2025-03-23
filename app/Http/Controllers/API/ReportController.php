@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    public function report()
+    public function generateReport()
     {
         $teamBasedReport = DB::table('employees')
             ->selectRaw('team_id, COUNT(id) as total_employees, AVG(salary) as avg_salary')
