@@ -38,5 +38,11 @@ class ReportTest extends TestCase
                     '*' => ['id', 'name', 'total_employees']
                 ]
             ]);
+
+        $data = $response->json();
+
+        $this->assertEquals(55000, $data['teamBasedReport'][0]['avg_salary']); // (50000 + 60000) / 2
+        $this->assertEquals(75000, $data['teamBasedReport'][1]['avg_salary']); // (70000 + 80000) / 2
+        $this->assertEquals(4, $data['organizationBasedReport'][0]['total_employees']); // Total employees
     }
 }
