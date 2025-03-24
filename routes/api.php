@@ -8,6 +8,7 @@ use App\Http\Controllers\API\ReportController;
 use App\Http\Controllers\API\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EmployeeImportController;
 
 Route::post('/auth/login', [loginController::class, '__invoke']);
 Route::post('/auth/logout', [LogoutController::class, '__invoke']);
@@ -44,6 +45,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             Route::post('/store', [EmployeeController::class, 'store']);
             Route::post('/update', [EmployeeController::class, 'update']);
             Route::post('/delete', [EmployeeController::class, 'delete']);
+            Route::post('/import', [EmployeeImportController::class, 'import']);
         });
     });
 });
