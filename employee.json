@@ -2,19 +2,25 @@
     {
         "team_id": 1,
         "name": "John Doe",
-        "email": "john@example.com",
+        "start_date": "2021-01-01",
         "salary": 60000
     },
     {
         "team_id": 1,
         "name": "Jane Smith",
-        "email": "jane@example.com",
+        "start_date": "2021-02-01",
         "salary": 65000
     },
     {
-        "team_id": 2,
+        "team_id": 1,
         "name": "Alice Brown",
-        "email": "alice@example.com",
+        "start_date": "2021-03-01",
         "salary": 70000
+    },
+    {
+        "team_id": 1,
+        "name": "Bob Johnson",
+        "start_date": "2021-04-01",
+        "salary": 75000
     }
 ]
