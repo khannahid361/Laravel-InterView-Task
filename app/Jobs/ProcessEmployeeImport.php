@@ -38,7 +38,7 @@ class ProcessEmployeeImport implements ShouldQueue
             }
         }
 
-        Notification::route('mail', 'admin@example.com')
+        Notification::route('mail', 'admin@example.com') //hadi24x7@gmail.com
             ->notify(new ImportCompletedNotification());
     }
 }
