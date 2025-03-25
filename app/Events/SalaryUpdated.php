@@ -15,21 +15,21 @@ class SalaryUpdated
 {
     use Dispatchable, SerializesModels;
 
-    public Employee $employee;
-    public int $oldSalary;
-    public int $newSalary;
+    public int $employeeId;
+    public float $oldSalary;
+    public float $newSalary;
 
-    public function __construct(Employee $employee, int $oldSalary, int $newSalary)
+    public function __construct(int $employeeId, float $oldSalary, float $newSalary)
     {
-        $this->employee = $employee;
-        $this->oldSalary = $oldSalary;
-        $this->newSalary = $newSalary;
+        $this->employeeId = $employeeId;
+        $this->oldSalary = (float) $oldSalary;  // Ensure correct type
+        $this->newSalary = (float) $newSalary;  // Ensure correct type
     }
 
-    public function broadcastOn(): array
-    {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
-    }
+    // public function broadcastOn(): array
+    // {
+    //     return [
+    //         new PrivateChannel('channel-name'),
+    //     ];
+    // }
 }

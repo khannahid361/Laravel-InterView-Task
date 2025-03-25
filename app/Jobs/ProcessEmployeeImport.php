@@ -24,9 +24,9 @@ class ProcessEmployeeImport implements ShouldQueue
         $this->employees = $employees;
     }
 
-    public function handle(EmployeeDataImported $event)
+    public function handle()
     {
-        $total = count($event->employees);
+        $total = count($this->employees);
         $processed = 0;
         foreach ($this->employees as $data) {
             try {

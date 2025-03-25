@@ -17,9 +17,24 @@ class Employee extends Model
     ];
     protected $table = 'employees';
 
-    protected $dispatchesEvents = [
-        'updated' => SalaryUpdated::class,
-    ];
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($employee) {
+            if ($employee->isDirty('salary')) { 
+                event(new SalaryUpdated(
+                    $employee->id,                
+                    $employee->getOriginal('salary'),
+                    $employee->salary
+                ));
+            }
+        });
+    }
+
+    // protected $dispatchesEvents = [
+    //     'updated' => SalaryUpdated::class,
+    // ];
 
     public function team()
     {
@@ -29,14 +44,5 @@ class Employee extends Model
     public function scopeStartedAfter($query, $date)
     {
         return $query->where('start_date', '>=', $date);
-    }
-
-    protected static function booted()
-    {
-        static::updating(function ($employee) {
-            if ($employee->isDirty('salary')) {
-                event(new SalaryUpdated($employee, $employee->getOriginal('salary'), $employee->salary));
-            }
-        });
     }
 }

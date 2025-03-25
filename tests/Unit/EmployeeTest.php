@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class EmployeeTest extends TestCase
 {
-    use RefreshDatabase; 
+    use RefreshDatabase;
 
     public function test_employee_creation()
     {
@@ -53,9 +53,11 @@ class EmployeeTest extends TestCase
         $employee->update(['salary' => 60000]);
 
         Event::assertDispatched(SalaryUpdated::class, function ($event) use ($employee) {
-            return $event->employee->id === $employee->id &&
-                   $event->oldSalary === 50000 &&
-                   $event->newSalary === 60000;
+            return $event->employeeId === $employee->id &&
+                $event->oldSalary === 50000.0 &&
+                $event->newSalary === 60000.0;
         });
+
+        Event::assertDispatchedTimes(SalaryUpdated::class, 1); // Ensure event fired only once
     }
 }
