@@ -19,7 +19,8 @@ class EmployeeFactory extends Factory
             'name' => $this->faker->name,
             'salary' => $this->faker->numberBetween(30000, 100000),
             'start_date' => $this->faker->date(),
-            'team_id' => Team::factory(), // Automatically creates a team
+            // 'team_id' => Team::factory(), 
+            'team_id' => Team::factory()->create()->id, 
         ];
     }
 }

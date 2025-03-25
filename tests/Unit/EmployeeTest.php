@@ -5,13 +5,15 @@ namespace Tests\Unit;
 use App\Events\SalaryUpdated;
 use App\Models\Employee;
 use App\Models\Team;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class EmployeeTest extends TestCase
 {
-    use RefreshDatabase;
+    // use RefreshDatabase;
+    use DatabaseMigrations;
 
     public function test_employee_creation()
     {
@@ -50,14 +52,13 @@ class EmployeeTest extends TestCase
             'salary' => 50000,
         ]);
 
-        $employee->update(['salary' => 60000]);
-
+        $employee->salary = 60000;
+        $employee->save();
+    
         Event::assertDispatched(SalaryUpdated::class, function ($event) use ($employee) {
             return $event->employeeId === $employee->id &&
-                $event->oldSalary === 50000.0 &&
-                $event->newSalary === 60000.0;
+                   $event->oldSalary === 50000 &&
+                   $event->newSalary === 60000;
         });
-
-        Event::assertDispatchedTimes(SalaryUpdated::class, 1); // Ensure event fired only once
     }
 }

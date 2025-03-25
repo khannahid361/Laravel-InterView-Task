@@ -20,13 +20,14 @@ class Employee extends Model
     public static function boot()
     {
         parent::boot();
-
+    
         static::updating(function ($employee) {
-            if ($employee->isDirty('salary')) { 
+            if ($employee->isDirty('salary')) {
+                dd('Event is being fired for employee:', $employee->id, $employee->getOriginal('salary'), $employee->salary);
                 event(new SalaryUpdated(
-                    $employee->id,                
-                    $employee->getOriginal('salary'),
-                    $employee->salary
+                    $employee->id,  
+                    (float) $employee->getOriginal('salary'),  
+                    (float) $employee->salary
                 ));
             }
         });
