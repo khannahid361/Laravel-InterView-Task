@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Events\EmployeeDataImported;
 use App\Models\Employee;
 use App\Notifications\ImportCompletedNotification;
 use Illuminate\Bus\Queueable;
@@ -13,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 
-class ProcessEmployeeImport implements ShouldQueue
+class ProcessEmployeeImportcopy implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -24,10 +23,8 @@ class ProcessEmployeeImport implements ShouldQueue
         $this->employees = $employees;
     }
 
-    public function handle(EmployeeDataImported $event)
+    public function handle()
     {
-        $total = count($event->employees);
-        $processed = 0;
         foreach ($this->employees as $data) {
             try {
                 Employee::create([
@@ -36,13 +33,12 @@ class ProcessEmployeeImport implements ShouldQueue
                     'start_date' => $data['start_date'],
                     'salary' => $data['salary'],
                 ]);
-                $processed++;
             } catch (\Exception $e) {
                 Log::error("Employee Import Error: " . $e->getMessage());
             }
         }
 
         Notification::route('mail', 'hadi24x7@gmail.com') //hadi24x7@gmail.com
-            ->notify(new ImportCompletedNotification($total, $processed));
+            ->notify(new ImportCompletedNotification());
     }
 }

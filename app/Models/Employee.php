@@ -17,6 +17,10 @@ class Employee extends Model
     ];
     protected $table = 'employees';
 
+    protected $dispatchesEvents = [
+        'updated' => SalaryUpdated::class,
+    ];
+
     public function team()
     {
         return $this->belongsTo(Team::class);
