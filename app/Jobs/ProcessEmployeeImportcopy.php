@@ -39,6 +39,6 @@ class ProcessEmployeeImportcopy implements ShouldQueue
         }
 
         Notification::route('mail', 'hadi24x7@gmail.com') //hadi24x7@gmail.com
-            ->notify(new ImportCompletedNotification());
+            ->notify(new ImportCompletedNotification('10','4'));
     }
 }
