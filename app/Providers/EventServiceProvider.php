@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Events\EmployeeDataImported;
+use App\Events\SalaryUpdated;
+use App\Listeners\LogSalaryUpdate;
 use App\Listeners\QueueEmployeeImport;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -18,6 +20,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         EmployeeDataImported::class => [
             QueueEmployeeImport::class,
+        ],
+        SalaryUpdated::class => [
+            LogSalaryUpdate::class,
         ],
     ];
 

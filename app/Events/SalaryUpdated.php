@@ -22,8 +22,8 @@ class SalaryUpdated
     public function __construct(int $employeeId, float $oldSalary, float $newSalary)
     {
         $this->employeeId = $employeeId;
-        $this->oldSalary = (float) $oldSalary;  // Ensure correct type
-        $this->newSalary = (float) $newSalary;  // Ensure correct type
+        $this->oldSalary = $oldSalary;
+        $this->newSalary = $newSalary;
     }
 
     // public function broadcastOn(): array

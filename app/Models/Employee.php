@@ -17,17 +17,16 @@ class Employee extends Model
     ];
     protected $table = 'employees';
 
-    public static function boot()
+    protected static function boot()
     {
         parent::boot();
-    
+
         static::updating(function ($employee) {
             if ($employee->isDirty('salary')) {
-                dd('Event is being fired for employee:', $employee->id, $employee->getOriginal('salary'), $employee->salary);
                 event(new SalaryUpdated(
-                    $employee->id,  
-                    (float) $employee->getOriginal('salary'),  
-                    (float) $employee->salary
+                    $employee->id,
+                    $employee->getOriginal('salary'),
+                    $employee->salary
                 ));
             }
         });
