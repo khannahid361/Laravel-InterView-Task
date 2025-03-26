@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use MyVendor\PdfReports\ReportGenerator;
 
 class ReportController extends Controller
 {
@@ -26,5 +28,12 @@ class ReportController extends Controller
             'teamBasedReport' => $teamBasedReport,
             'organizationBasedReport' => $organizationBasedReport
         ]);
+    }
+
+    public function download()
+    {
+        $employees = Employee::all();
+        $report = new ReportGenerator();
+        return $report->generate($employees);
     }
 }

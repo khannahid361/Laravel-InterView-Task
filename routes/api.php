@@ -9,6 +9,7 @@ use App\Http\Controllers\API\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeImportController;
+use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 
 Route::post('/auth/login', [loginController::class, '__invoke']);
 Route::post('/auth/logout', [LogoutController::class, '__invoke']);
@@ -49,3 +50,5 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         });
     });
 });
+
+Route::get('/employee-report', [ReportController::class,'download']);

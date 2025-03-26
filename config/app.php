@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+        MyVendor\PdfReports\PdfReportsServiceProvider::class,
 
         /*
          * Application Service Providers...

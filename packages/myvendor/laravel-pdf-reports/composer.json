@@ -1,0 +1,22 @@
+{
+    "name": "myvendor/laravel-pdf-reports",
+    "description": "A laravel Package for generating PDF Reports",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Myvendor\\LaravelPdfReports\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kamrul Hasan",
+            "email": "khannahid361@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "barryvdh/laravel-dompdf": "^3.1",
+        "illuminate/support": "^10.48"
+    }
+}
