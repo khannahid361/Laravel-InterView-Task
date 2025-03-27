@@ -23,6 +23,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::prefix('organization')->group(function () {
         Route::get('/', [OrganizationController::class, 'index']);
         Route::middleware(['permission'])->group(function () {
+            Route::get('/view/{id}', [OrganizationController::class, 'show']);
             Route::post('/store', [OrganizationController::class, 'store']);
             Route::post('/update', [OrganizationController::class, 'update']);
             Route::post('/delete', [OrganizationController::class, 'delete']);
@@ -33,6 +34,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::prefix('team')->group(function () {
         Route::get('/', [TeamController::class, 'index']);
         Route::middleware(['permission'])->group(function () {
+            Route::get('/view/{id}', [TeamController::class, 'show']);
             Route::post('/store', [TeamController::class, 'store']);
             Route::post('/update', [TeamController::class, 'update']);
             Route::post('/delete', [TeamController::class, 'delete']);
@@ -43,6 +45,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::prefix('employee')->group(function () {
         Route::get('/', [EmployeeController::class, 'index']);
         Route::middleware(['permission'])->group(function () {
+            Route::get('/view/{id}', [EmployeeController::class, 'show']);
             Route::post('/store', [EmployeeController::class, 'store']);
             Route::post('/update', [EmployeeController::class, 'update']);
             Route::post('/delete', [EmployeeController::class, 'delete']);

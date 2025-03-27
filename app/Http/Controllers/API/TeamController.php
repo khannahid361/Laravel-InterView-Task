@@ -18,6 +18,19 @@ class TeamController extends Controller
         ], 200);
     }
 
+    public function show($id)
+    {
+        $team = Team::find($id);
+        if (!$team) {
+            return response()->json([
+                'message' => 'Team not found'
+            ], 404);
+        }
+        return response()->json([
+            'team' => $team
+        ], 200);
+    }
+
     public function store(TeamFormRequest $request)
     {
         DB::beginTransaction();

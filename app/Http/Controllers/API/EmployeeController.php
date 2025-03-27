@@ -20,6 +20,19 @@ class EmployeeController extends Controller
         ], 200);
     }
 
+    public function show($id)
+    {
+        $employee = Employee::find($id);
+        if (!$employee) {
+            return response()->json([
+                'message' => 'Employee not found'
+            ], 404);
+        }
+        return response()->json([
+            'employee' => $employee
+        ], 200);
+    }
+
     public function filterEmployee(Request $request)
     {
         $date = Carbon::parse($request->start_date)->startOfDay();

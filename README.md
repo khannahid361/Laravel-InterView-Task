@@ -169,6 +169,8 @@ If you want to create your own file please follow this structure
         <tr><td>GET</td><td>/employee-report</td><td>Download employee report as PDF</td><td>None</td></tr>
     </table>
 
+#### *** Employee report is going to be mailed to you Via job. Please add mail in the report controller ***
+
 ### 🔒 Protected Endpoints (auth:sanctum) <br>
 All routes inside <b>/v1</b> require authentication.
 
@@ -194,6 +196,7 @@ All routes inside <b>/v1</b> require authentication.
             <th>Middleware</th>
         </tr>
         <tr><td>GET</td><td>/v1/organization/</td><td>Get list of organizations</td><td>auth:sanctum</td></tr>
+        <tr><td>GET</td><td>/v1/organization/view/{id}</td><td>Get Specific/Single organization details</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/organization/store</td><td>Create a new organization</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/organization/update</td><td>Update organization details</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/organization/delete</td><td>Delete an organization</td><td>auth:sanctum, permission</td></tr>
@@ -209,6 +212,7 @@ All routes inside <b>/v1</b> require authentication.
             <th>Middleware</th>
         </tr>
         <tr><td>GET</td><td>/v1/team/</td><td>Get list of teams</td><td>auth:sanctum</td></tr>
+        <tr><td>GET</td><td>/v1/team/view/{id}</td><td>Get specific team details</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/team/store</td><td>Create a new team</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/team/update</td><td>Update team details</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/team/delete</td><td>Delete a team</td><td>auth:sanctum, permission</td></tr>
@@ -224,6 +228,7 @@ All routes inside <b>/v1</b> require authentication.
             <th>Middleware</th>
         </tr>
         <tr><td>GET</td><td>/v1/employee/</td><td>Get list of employees</td><td>auth:sanctum</td></tr>
+        <tr><td>GET</td><td>/v1/employee/view/{id}</td><td>Get specific employee details</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/employee/store</td><td>Create a new employee</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/employee/update</td><td>Update employee details</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/employee/delete</td><td>Delete an employee</td><td>auth:sanctum, permission</td></tr>
@@ -248,3 +253,6 @@ Perfomance Report Is Added as a Readme file **PerfomanceReport.md**
 
 ## **Telescope** 
 Visit http://127.0.0.1:8000/telescope/queries for checking queries
+
+## Postman API Collection 
+Please check the file with name **Assignment.postman_collection**

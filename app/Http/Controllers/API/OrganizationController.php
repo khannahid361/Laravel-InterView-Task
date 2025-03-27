@@ -17,6 +17,18 @@ class OrganizationController extends Controller
         ], 200);
     }
 
+    public function show($id)
+    {
+        $organization = Organization::find($id);
+        if (!$organization) {
+            return response()->json([
+                'message' => 'Organization not found'
+            ], 404);
+        }
+        return response()->json([
+            'organization' => $organization
+        ], 200);
+    }
     public function store(OrganizationFormRequest $request)
     {
         DB::beginTransaction();
