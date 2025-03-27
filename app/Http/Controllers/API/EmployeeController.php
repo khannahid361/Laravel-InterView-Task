@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeFormRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -19,40 +20,67 @@ class EmployeeController extends Controller
 
     public function store(EmployeeFormRequest $request)
     {
-        $employee = Employee::create($request->all());
-        return response()->json([
-            'message' => 'Employee created successfully',
-            'employee' => $employee
-        ], 200);
+        DB::beginTransaction();
+        try {
+            $employee = Employee::create($request->all());
+            DB::commit();
+            return response()->json([
+                'message' => 'Employee created successfully',
+                'employee' => $employee
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function update(EmployeeFormRequest $request)
     {
-        $employee = Employee::find($request->update_id);
-        if (!$employee) {
+        DB::beginTransaction();
+        try {
+            $employee = Employee::find($request->update_id);
+            if (!$employee) {
+                return response()->json([
+                    'message' => 'Employee not found'
+                ], 404);
+            }
+            $employee->update($request->all());
+            DB::commit();
             return response()->json([
-                'message' => 'Employee not found'
-            ], 404);
+                'message' => 'Employee updated successfully',
+                'employee' => $employee
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-        $employee->update($request->all());
-        return response()->json([
-            'message' => 'Employee updated successfully',
-            'employee' => $employee
-        ], 200);
     }
 
     public function delete(Request $request)
     {
-        $employee = Employee::find($request->employee_id);
-        if (!$employee) {
+        DB::beginTransaction();
+        try {
+            $employee = Employee::find($request->employee_id);
+            if (!$employee) {
+                return response()->json([
+                    'message' => 'Employee not found'
+                ], 404);
+            }
+            $employee->delete();
+            DB::commit();
             return response()->json([
-                'message' => 'Employee not found'
-            ], 404);
+                'message' => 'Employee deleted successfully',
+                'employee' => $employee
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-        $employee->delete();
-        return response()->json([
-            'message' => 'Employee deleted successfully',
-            'employee' => $employee
-        ], 200);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TeamFormRequest;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TeamController extends Controller
 {
@@ -19,40 +20,68 @@ class TeamController extends Controller
 
     public function store(TeamFormRequest $request)
     {
-        $team = Team::create($request->all());
-        return response()->json([
-            'message' => 'Team created successfully',
-            'team' => $team
-        ], 200);
+        DB::beginTransaction();
+        try {
+            $team = Team::create($request->all());
+            DB::commit();
+            return response()->json([
+                'message' => 'Team created successfully',
+                'team' => $team
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function update(TeamFormRequest $request)
     {
-        $team = Team::find($request->update_id);
-        if (!$team) {
+        DB::beginTransaction();
+        try {
+
+            $team = Team::find($request->update_id);
+            if (!$team) {
+                return response()->json([
+                    'message' => 'Team not found'
+                ], 404);
+            }
+            $team->update($request->all());
+            DB::commit();
             return response()->json([
-                'message' => 'Team not found'
-            ], 404);
+                'message' => 'Team updated successfully',
+                'team' => $team
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-        $team->update($request->all());
-        return response()->json([
-            'message' => 'Team updated successfully',
-            'team' => $team
-        ], 200);
     }
 
     public function delete(Request $request)
     {
-        $team = Team::find($request->team_id);
-        if (!$team) {
+        DB::beginTransaction();
+        try {
+            $team = Team::find($request->team_id);
+            if (!$team) {
+                return response()->json([
+                    'message' => 'Team not found'
+                ], 404);
+            }
+            $team->delete();
+            DB::commit();
             return response()->json([
-                'message' => 'Team not found'
-            ], 404);
+                'message' => 'Team deleted successfully',
+                'team' => $team
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-        $team->delete();
-        return response()->json([
-            'message' => 'Team deleted successfully',
-            'team' => $team
-        ], 200);
     }
 }

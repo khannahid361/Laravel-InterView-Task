@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationFormRequest;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrganizationController extends Controller
 {
@@ -18,41 +19,67 @@ class OrganizationController extends Controller
 
     public function store(OrganizationFormRequest $request)
     {
-        $organization = Organization::create($request->all());  
-
-        return response()->json([
-            'message' => 'Organization created successfully',
-            'organization' => $organization
-        ], 200);
+        DB::beginTransaction();
+        try {
+            $organization = Organization::create($request->all());
+            DB::commit();
+            return response()->json([
+                'message' => 'Organization created successfully',
+                'organization' => $organization
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function update(OrganizationFormRequest $request)
     {
-        $organization = Organization::find($request->update_id);
-        if(!$organization) {
+        DB::beginTransaction();
+        try {
+            $organization = Organization::find($request->update_id);
+            if (!$organization) {
+                return response()->json([
+                    'message' => 'Organization not found'
+                ], 404);
+            }
+            $organization->update($request->all());
+            DB::commit();
             return response()->json([
-                'message' => 'Organization not found'
-            ], 404);
+                'message' => 'Organization updated successfully',
+                'organization' => $organization
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-        $organization->update($request->all());  
-        return response()->json([
-            'message' => 'Organization updated successfully',
-            'organization' => $organization
-        ], 200);
     }
 
     public function delete(Request $request)
     {
-        $organization = Organization::find($request->organization_id);
-        if(!$organization) {
+        DB::beginTransaction();
+        try {
+            $organization = Organization::find($request->organization_id);
+            if (!$organization) {
+                return response()->json([
+                    'message' => 'Organization not found'
+                ], 404);
+            }
+            $organization->delete();
+            DB::commit();
             return response()->json([
-                'message' => 'Organization not found'
-            ], 404);
+                'message' => 'Organization deleted successfully',
+                'organization' => $organization
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => $e->getMessage()
+            ], 500);
         }
-        $organization->delete();
-        return response()->json([
-            'message' => 'Organization deleted successfully',
-            'organization' => $organization
-        ], 200);
     }
 }
