@@ -15,12 +15,14 @@ class EmployeeFactory extends Factory
 
     public function definition(): array
     {
+        // i want 10000 data
+        
         return [
             'name' => $this->faker->name,
             'salary' => $this->faker->numberBetween(30000, 100000),
-            'start_date' => $this->faker->date(),
-            // 'team_id' => Team::factory(), 
-            'team_id' => Team::factory()->create()->id, 
+            'start_date' => $this->faker->date(), 
+            'team_id' => 1, 
+            // 'team_id' => Team::factory()->create()->id, 
         ];
     }
 }
