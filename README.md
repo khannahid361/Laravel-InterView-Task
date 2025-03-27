@@ -1,33 +1,69 @@
 <p align="center"><a href="#" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 
-## About Laravel
+# Laravel Employee Management System
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📌 Project Overview
+This is a Laravel-based Employee Management System with advanced features such as salary tracking, event-driven architecture, and PDF report generation.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
+---
 
+## 🚀 Features
+- Organization CRUD operations
+- Team CRUD operations
+- Employee CRUD operations
+- Salary updates with event-driven logging
+- PDF report generation for employee data
+- API authentication & security
+- Optimized database queries with Eloquent
+- Job queue for background tasks (email, reports)
+- **Gmail SMTP Integration for Email Notifications**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 📦 Installation Guide
 
-
-
-
-
-
-
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
-
-## Working Step
-
-- Installed Laravel
-- Added 3 tables 
-- created database and Migrated 3 tables 
-- relationship defined in model
-- **[Vehikl](https://vehikl.com/)**
+### **Step 1: Clone the Repository**
+```sh
+git clone https://github.com/khannahid361/Laravel-InterView-Task.git
+cd Laravel-InterView-Task
+```
+### **Step 2: Install Dependencies**
+```sh
+composer install
+```
+### **Step 3: Configure Environment**
+Copy the .env.example file and rename it to .env:
+```sh
+cp .env.example .env
+```
+Now, generate the application key:
+```sh
+php artisan key:generate
+```
+### **Step 4: Set Up the Database**
+Update the .env file with your database credentials:
+```sh
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=employee_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+### **Step 5: Configure Gmail SMTP for Email Notifications**
+Open your .env file and add/update the following Gmail SMTP settings:
+```sh
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=your-email@gmail.com
+MAIL_PASSWORD=your-app-password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=your-email@gmail.com
+MAIL_FROM_NAME="Employee Management System"
+```
+Important: You need to generate an App Password for Gmail.
+- Go to Google Account → Security
+- Enable 2-Step Verification
+- Generate an App Password and use it in MAIL_PASSWORD
