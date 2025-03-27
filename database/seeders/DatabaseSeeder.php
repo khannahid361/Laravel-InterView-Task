@@ -27,6 +27,6 @@ class DatabaseSeeder extends Seeder
             'role'  => 2 //user
         ]);
 
-        // Employee::factory()->count(10000)->create();
+        // Employee::factory()->count(1000)->create();
     }
 }

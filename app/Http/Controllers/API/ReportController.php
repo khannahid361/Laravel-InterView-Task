@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\GenerateEmployeeReport;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +33,12 @@ class ReportController extends Controller
 
     public function download()
     {
-        $employees = Employee::all();
-        $report = new ReportGenerator();
-        return $report->generate($employees);
+        $usermail = 'khn36110@gmail.com';
+
+        // Dispatch the job to generate the report and send the email
+        GenerateEmployeeReport::dispatch($usermail);
+
+        return response()->json(['message' => 'Report generation started. You will receive an email once it\'s done.']);
     }
+    
 }

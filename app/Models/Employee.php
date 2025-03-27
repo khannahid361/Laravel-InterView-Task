@@ -32,9 +32,9 @@ class Employee extends Model
         });
     }
 
-    // protected $dispatchesEvents = [
-    //     'updated' => SalaryUpdated::class,
-    // ];
+    protected $dispatchesEvents = [
+        'updated' => SalaryUpdated::class,
+    ];
 
     public function team()
     {

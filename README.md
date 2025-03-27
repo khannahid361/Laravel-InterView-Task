@@ -228,6 +228,7 @@ All routes inside <b>/v1</b> require authentication.
         <tr><td>POST</td><td>/v1/employee/update</td><td>Update employee details</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/employee/delete</td><td>Delete an employee</td><td>auth:sanctum, permission</td></tr>
         <tr><td>POST</td><td>/v1/employee/import</td><td>Import employees from JSON</td><td>auth:sanctum, permission</td></tr>
+        <tr><td>POST</td><td>/v1/employee/filter</td><td>Filterig employees based on their starting date</td><td>auth:sanctum, permission</td></tr>
     </table>
 
 🔄 Employee Import
@@ -245,4 +246,5 @@ All routes inside <b>/v1</b> require authentication.
 ## Perfomance Report
 Perfomance Report Is Added as a Readme file **PerfomanceReport.md**
 
-
+## **Telescope** 
+Visit http://127.0.0.1:8000/telescope/queries for checking queries

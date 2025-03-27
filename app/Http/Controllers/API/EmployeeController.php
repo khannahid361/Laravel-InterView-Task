@@ -7,6 +7,7 @@ use App\Http\Requests\EmployeeFormRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -17,6 +18,16 @@ class EmployeeController extends Controller
         return response()->json([
             'employees' => $employees
         ], 200);
+    }
+
+    public function filterEmployee(Request $request)
+    {
+        $date = Carbon::parse($request->start_date)->startOfDay();
+
+        $employees = Employee::startedAfter($date)->with('team', 'team.organization')->paginate(10);
+        return response()->json([
+            'employees' => $employees
+        ]);
     }
 
     public function store(EmployeeFormRequest $request)

@@ -7,9 +7,9 @@ use App\Http\Controllers\API\EmployeeImportController;
 use App\Http\Controllers\API\OrganizationController;
 use App\Http\Controllers\API\ReportController;
 use App\Http\Controllers\API\TeamController;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Xml\Report;
 
 Route::post('/auth/login', [loginController::class, '__invoke']);
 Route::post('/auth/logout', [LogoutController::class, '__invoke']);
@@ -46,6 +46,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             Route::post('/store', [EmployeeController::class, 'store']);
             Route::post('/update', [EmployeeController::class, 'update']);
             Route::post('/delete', [EmployeeController::class, 'delete']);
+            Route::post('/filter', [EmployeeController::class, 'filterEmployee']);
             Route::post('/import', [EmployeeImportController::class, 'import']);
         });
     });
